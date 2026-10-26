@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAXIAN HOME · Furniture Showcase</title>
+<meta name="description" content="DAXIAN HOME — Minimal, durable, timeless furniture. Designed from materials, made for real life.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231F1B16'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' fill='%23F7F3EC' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#F7F3EC;
+    --paper-2:#EFE9DD;
+    --ink:#1F1B16;
+    --muted:#7A715F;
+    --line:#E4DDCF;
+    --wood:#9A6B3A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;height:auto;}
+  a{color:inherit;text-decoration:none;}
+
+  /* ===== Header ===== */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,243,236,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:1200px;margin:0 auto;padding:18px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{font-family:Georgia,'Times New Roman',serif;font-size:1.25rem;letter-spacing:.14em;font-weight:700;}
+  .nav-links{display:flex;gap:32px;font-size:.9rem;letter-spacing:.06em;color:var(--muted);}
+  .nav-links a{transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 10px;color:var(--ink);cursor:pointer;}
+
+  /* ===== Hero ===== */
+  .hero{
+    max-width:1200px;margin:0 auto;padding:72px 24px 24px;
+    display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;
+  }
+  .hero h1{
+    font-family:Georgia,'Times New Roman',serif;
+    font-weight:500;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.15;
+    margin-bottom:22px;
+  }
+  .hero h1 em{font-style:italic;color:var(--wood);}
+  .hero p{color:var(--muted);font-size:1.05rem;max-width:44ch;margin-bottom:30px;}
+  .hero .scroll-hint{font-size:.8rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;}
+  .hero figure img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:saturate(.92);}
+
+  /* ===== Sections ===== */
+  .section{max-width:1200px;margin:0 auto;padding:88px 24px;}
+  .kicker{
+    font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--wood);
+    margin-bottom:14px;
+  }
+  .sec-title{
+    font-family:Georgia,'Times New Roman',serif;font-weight:500;
+    font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.2;margin-bottom:12px;
+  }
+  .sec-desc{color:var(--muted);max-width:60ch;margin-bottom:44px;}
+
+  /* ===== Product grid ===== */
+  .grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  }
+  .card{background:var(--paper-2);border:1px solid var(--line);}
+  .card .img-wrap{overflow:hidden;aspect-ratio:4/3;}
+  .card .img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .card:hover .img-wrap img{transform:scale(1.04);}
+  .card-body{padding:20px 22px 24px;}
+  .card-cat{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--wood);margin-bottom:8px;}
+  .card-body h3{font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:1.28rem;margin-bottom:6px;}
+  .card-body p{font-size:.9rem;color:var(--muted);margin-bottom:16px;}
+  .card-body .more{
+    font-size:.85rem;letter-spacing:.06em;color:var(--ink);border-bottom:1px solid var(--ink);
+    padding-bottom:2px;transition:color .2s,border-color .2s;
+  }
+  .card-body .more:hover{color:var(--wood);border-color:var(--wood);}
+
+  /* ===== About ===== */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .about figure img{width:100%;aspect-ratio:4/3;object-fit:cover;}
+  .about .principles{margin-top:28px;border-top:1px solid var(--line);}
+  .about .principles li{list-style:none;padding:16px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;}
+  .about .principles .p-num{font-family:Georgia,serif;color:var(--wood);font-size:.9rem;}
+  .about .principles .p-txt{font-size:.95rem;text-align:right;}
+
+  /* ===== Contact ===== */
+  .contact{
+    background:var(--ink);color:var(--paper);
+  }
+  .contact .section{max-width:1200px;}
+  .contact .kicker{color:#C9A876;}
+  .contact .sec-desc{color:#C9C2B2;}
+  .contact .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .contact .cols h4{font-family:Georgia,serif;font-weight:500;font-size:1.05rem;margin-bottom:10px;color:#E8E2D6;}
+  .contact .cols p,.contact .cols a{color:#B9B1A0;font-size:.93rem;display:block;}
+  .contact .cols a:hover{color:var(--paper);}
+  .contact .mail-line{margin-top:10px;font-size:1rem;color:var(--paper);letter-spacing:.04em;}
+
+  footer.site{
+    background:var(--ink);border-top:1px solid rgba(255,255,255,.12);
+    max-width:1200px;margin:0 auto;padding:34px 24px 34px;color:#8D8576;font-size:.82rem;
+    display:flex;flex-direction:column;align-items:center;gap:22px;
+  }
+  .social{display:flex;gap:20px;}
+  .social a{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:42px;height:42px;border:1px solid rgba(255,255,255,.18);border-radius:50%;
+    color:#C9C2B2;transition:color .2s,border-color .2s,transform .2s;
+  }
+  .social a:hover{color:var(--paper);border-color:var(--paper);transform:translateY(-2px);}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;width:100%;}
+
+  /* ===== Responsive ===== */
+  @media (max-width:767px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+      background:var(--paper);border-bottom:1px solid var(--line);
+      padding:8px 24px;display:none;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:14px 0;border-bottom:1px solid var(--line);}
+    .menu-btn{display:block;}
+    .hero{grid-template-columns:1fr;padding-top:44px;gap:28px;}
+    .grid{grid-template-columns:1fr;}
+    .about{grid-template-columns:1fr;gap:32px;}
+    .contact .cols{grid-template-columns:1fr;gap:24px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="#top">DAXIAN HOME</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#collection">Collection</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div>
+      <p class="scroll-hint">Home · Furniture · Living</p>
+      <h1>Furniture built to<br>last a <em>lifetime</em></h1>
+      <p>DAXIAN HOME makes minimal, durable, sustainable furniture. Every piece starts from the material and is designed for real life.</p>
+      <p class="scroll-hint">Scroll ↓</p>
+    </div>
+    <figure>
+      <img src="assets/sofa-beige.jpg" alt="Beige fabric sofa in a minimalist living room">
+    </figure>
+  </section>
+
+  <!-- ===== Collection ===== -->
+  <section class="section" id="collection">
+    <p class="kicker">Collection</p>
+    <h2 class="sec-title">Featured Pieces</h2>
+    <p class="sec-desc">These are placeholder products for the first draft. Before launch, this section will be replaced with your own furniture photos and names.</p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="img-wrap"><img src="assets/sofa-grey.jpg" alt="Grey fabric two-seater sofa"></div>
+        <div class="card-body">
+          <p class="card-cat">Living · Sofa</p>
+          <h3>Cloud Two-Seater</h3>
+          <p>Upholstery on slim wooden legs — light and comfortable for the modern living room.</p>
+          <a class="more" href="#contact">Request a quote →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="img-wrap"><img src="assets/sofa-brown.jpg" alt="Brown leather sofa"></div>
+        <div class="card-body">
+          <p class="card-cat">Living · Sofa</p>
+          <h3>Oak Leather Sofa</h3>
+          <p>Warm leather over black metal legs — understated and refined.</p>
+          <a class="more" href="#contact">Request a quote →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="img-wrap"><img src="assets/dining-walnut.jpg" alt="Walnut dining table and chairs"></div>
+        <div class="card-body">
+          <p class="card-cat">Dining · Table</p>
+          <h3>Walnut Dining Table</h3>
+          <p>Flowing table legs and rattan chair backs — solid and full of character.</p>
+          <a class="more" href="#contact">Request a quote →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="img-wrap"><img src="assets/dining-round.jpg" alt="Round wooden dining table"></div>
+        <div class="card-body">
+          <p class="card-cat">Dining · Table</p>
+          <h3>Round Dining Table</h3>
+          <p>A rounded form, perfect for small spaces and intimate gatherings.</p>
+          <a class="more" href="#contact">Request a quote →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="img-wrap"><img src="assets/bedroom-cabinet.jpg" alt="Modern bedroom storage set"></div>
+        <div class="card-body">
+          <p class="card-cat">Bedroom · Suite</p>
+          <h3>Modern Bedroom Set</h3>
+          <p>Integrated storage cabinetry for a clean, organised living space.</p>
+          <a class="more" href="#contact">Request a quote →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="img-wrap"><img src="assets/wardrobe-white.jpg" alt="White sliding-door wardrobe"></div>
+        <div class="card-body">
+          <p class="card-cat">Bedroom · Wardrobe</p>
+          <h3>Sliding Wardrobe</h3>
+          <p>Minimal white doors and hidden storage — light and restrained.</p>
+          <a class="more" href="#contact">Request a quote →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section class="section" id="about">
+    <div class="about">
+      <figure>
+        <img src="assets/sofa-beige.jpg" alt="Beige sofa in a bright living room">
+      </figure>
+      <div>
+        <p class="kicker">About</p>
+        <h2 class="sec-title">Designed from materials, made for real life</h2>
+        <p class="sec-desc">DAXIAN HOME believes good furniture doesn't need to shout. We care about the grain of the wood, the feel of the fabric and the durability of the build — leaving the complexity to our craft and the simplicity to you.</p>
+        <ul class="principles">
+          <li><span class="p-num">01</span><span class="p-txt">Solid wood, sustainable &amp; eco-friendly</span></li>
+          <li><span class="p-num">02</span><span class="p-txt">Minimal design that never grows old</span></li>
+          <li><span class="p-num">03</span><span class="p-txt">Customisable sizes and fabrics</span></li>
+          <li><span class="p-num">04</span><span class="p-txt">Factory-direct, shipped worldwide</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section class="contact" id="contact">
+    <div class="section">
+      <p class="kicker">Contact</p>
+      <h2 class="sec-title">Start Your Custom Project</h2>
+      <p class="sec-desc">Whether it's a quote for a single piece or a whole-home furnishing plan, we'd love to talk with you in detail.</p>
+      <div class="cols">
+        <div>
+          <h4>Email</h4>
+          <p>sales@daxianhome.top</p>
+        </div>
+        <div>
+          <h4>Brand</h4>
+          <p>DAXIAN HOME</p>
+          <p>Guangdong · Foshan · China</p>
+        </div>
+        <div>
+          <h4>Specialty</h4>
+          <p>Living · Dining · Bedroom furniture</p>
+          <p>Export · Custom · Wholesale</p>
+        </div>
+      </div>
+      <p class="mail-line">— daxianhome.top</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="social">
+    <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.06 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.35 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.35-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.06-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.35-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.06-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.35 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.01 10.13 11.92v-8.43H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.96H15.83c-1.49 0-1.96.93-1.96 1.88v2.25h3.33l-.53 3.49h-2.8v8.43C19.61 23.08 24 18.09 24 12.07z"/></svg>
+    </a>
+    <a href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48a9.06 9.06 0 0 1-1.66-2.06c-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88a9.82 9.82 0 0 1 6.98 2.9 9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.43 9.89-9.87 9.89zm8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9a11.82 11.82 0 0 0-3.48-8.41z"/></svg>
+    </a>
+  </div>
+  <div class="foot-meta">
+    <span>© 2026 DAXIAN HOME</span>
+    <span>Designed with restraint · Built for Cloudflare Pages</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Subtle reveal on scroll (restrained — headings only)
+  const revealEls = document.querySelectorAll('.hero, .section .sec-title, .section .kicker');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(14px)';
+    el.style.transition = 'opacity .7s ease, transform .7s ease';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
