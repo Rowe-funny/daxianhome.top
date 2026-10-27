@@ -96,6 +96,18 @@
   }
   .card-body .more:hover{color:var(--wood);border-color:var(--wood);}
 
+  /* ===== Category filter ===== */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;}
+  .filter-btn{
+    background:transparent;border:1px solid var(--line);color:var(--muted);
+    font-size:.82rem;letter-spacing:.04em;padding:8px 16px;border-radius:999px;
+    cursor:pointer;transition:all .2s;
+  }
+  .filter-btn:hover{color:var(--ink);border-color:var(--wood);}
+  .filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .grid .card.hidden{display:none;}
+  .no-results{display:none;text-align:center;color:var(--muted);padding:48px 0;font-size:1rem;}
+
   /* ===== About ===== */
   .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
   .about figure img{width:100%;aspect-ratio:4/3;object-fit:cover;}
@@ -188,8 +200,22 @@
     <h2 class="sec-title">Featured Pieces</h2>
     <p class="sec-desc">These are placeholder products for the first draft. Before launch, this section will be replaced with your own furniture photos and names.</p>
 
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="sofa">Sofa</button>
+      <button class="filter-btn" data-cat="coffee-table">Coffee Table</button>
+      <button class="filter-btn" data-cat="tv-cabinet">TV Cabinet</button>
+      <button class="filter-btn" data-cat="dining-table">Dining Table</button>
+      <button class="filter-btn" data-cat="dining-chair">Dining Chair</button>
+      <button class="filter-btn" data-cat="sideboard">Sideboard</button>
+      <button class="filter-btn" data-cat="chest">Chest</button>
+      <button class="filter-btn" data-cat="bed">Bed</button>
+      <button class="filter-btn" data-cat="nightstand">Nightstand</button>
+      <button class="filter-btn" data-cat="wardrobe">Wardrobe</button>
+    </div>
+
     <div class="grid">
-      <article class="card">
+      <article class="card" data-cat="sofa">
         <div class="img-wrap"><img src="assets/sofa-grey.jpg" alt="Grey fabric two-seater sofa"></div>
         <div class="card-body">
           <p class="card-cat">Living · Sofa</p>
@@ -199,7 +225,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="sofa">
         <div class="img-wrap"><img src="assets/sofa-brown.jpg" alt="Brown leather sofa"></div>
         <div class="card-body">
           <p class="card-cat">Living · Sofa</p>
@@ -209,7 +235,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="dining-table">
         <div class="img-wrap"><img src="assets/dining-walnut.jpg" alt="Walnut dining table and chairs"></div>
         <div class="card-body">
           <p class="card-cat">Dining · Table</p>
@@ -219,7 +245,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="dining-table">
         <div class="img-wrap"><img src="assets/dining-round.jpg" alt="Round wooden dining table"></div>
         <div class="card-body">
           <p class="card-cat">Dining · Table</p>
@@ -229,7 +255,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="bed">
         <div class="img-wrap"><img src="assets/bedroom-cabinet.jpg" alt="Modern bedroom storage set"></div>
         <div class="card-body">
           <p class="card-cat">Bedroom · Suite</p>
@@ -239,7 +265,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="wardrobe">
         <div class="img-wrap"><img src="assets/wardrobe-white.jpg" alt="White sliding-door wardrobe"></div>
         <div class="card-body">
           <p class="card-cat">Bedroom · Wardrobe</p>
@@ -249,6 +275,7 @@
         </div>
       </article>
     </div>
+    <p class="no-results" id="noResults">No pieces in this category yet — coming soon.</p>
   </section>
 
   <!-- ===== About ===== -->
@@ -349,6 +376,25 @@
     el.style.transform = 'translateY(14px)';
     el.style.transition = 'opacity .7s ease, transform .7s ease';
     io.observe(el);
+  });
+
+  // Category filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card[data-cat]');
+  const noResults = document.getElementById('noResults');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      let visible = 0;
+      cards.forEach(card => {
+        const show = (cat === 'all' || card.dataset.cat === cat);
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
   });
 </script>
 </body>
