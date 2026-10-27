@@ -108,6 +108,29 @@
   .grid .card.hidden{display:none;}
   .no-results{display:none;text-align:center;color:var(--muted);padding:48px 0;font-size:1rem;}
 
+  /* ===== Product detail view ===== */
+  .detail-view{display:none;}
+  .detail-view.active{display:block;}
+  .detail-back{
+    background:none;border:none;color:var(--muted);font-size:.88rem;letter-spacing:.05em;
+    cursor:pointer;padding:0;margin-bottom:28px;transition:color .2s;
+  }
+  .detail-back:hover{color:var(--ink);}
+  .detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .detail-layout figure img{width:100%;aspect-ratio:4/3;object-fit:cover;}
+  .detail-kicker{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--wood);margin-bottom:10px;}
+  .detail-title{font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1.2;margin-bottom:14px;}
+  .detail-desc{color:var(--muted);margin-bottom:28px;}
+  .spec-list{border-top:1px solid var(--line);}
+  .spec-list li{list-style:none;padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-size:.93rem;}
+  .spec-list .s-label{color:var(--muted);}
+  .spec-list .s-val{text-align:right;}
+  .detail-cta{
+    display:inline-block;margin-top:30px;background:var(--ink);color:var(--paper);
+    padding:14px 28px;font-size:.95rem;letter-spacing:.05em;transition:background .2s;
+  }
+  .detail-cta:hover{background:var(--wood);}
+
   /* ===== About ===== */
   .about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
   .about figure img{width:100%;aspect-ratio:4/3;object-fit:cover;}
@@ -215,7 +238,7 @@
     </div>
 
     <div class="grid">
-      <article class="card" data-cat="sofa">
+      <article class="card" data-id="cloud-two-seater" data-cat="sofa">
         <div class="img-wrap"><img src="assets/sofa-grey.jpg" alt="Grey fabric two-seater sofa"></div>
         <div class="card-body">
           <p class="card-cat">Living · Sofa</p>
@@ -225,7 +248,7 @@
         </div>
       </article>
 
-      <article class="card" data-cat="sofa">
+      <article class="card" data-id="oak-leather-sofa" data-cat="sofa">
         <div class="img-wrap"><img src="assets/sofa-brown.jpg" alt="Brown leather sofa"></div>
         <div class="card-body">
           <p class="card-cat">Living · Sofa</p>
@@ -235,7 +258,7 @@
         </div>
       </article>
 
-      <article class="card" data-cat="dining-table">
+      <article class="card" data-id="walnut-dining-table" data-cat="dining-table">
         <div class="img-wrap"><img src="assets/dining-walnut.jpg" alt="Walnut dining table and chairs"></div>
         <div class="card-body">
           <p class="card-cat">Dining · Table</p>
@@ -245,7 +268,7 @@
         </div>
       </article>
 
-      <article class="card" data-cat="dining-table">
+      <article class="card" data-id="round-dining-table" data-cat="dining-table">
         <div class="img-wrap"><img src="assets/dining-round.jpg" alt="Round wooden dining table"></div>
         <div class="card-body">
           <p class="card-cat">Dining · Table</p>
@@ -255,7 +278,7 @@
         </div>
       </article>
 
-      <article class="card" data-cat="bed">
+      <article class="card" data-id="modern-bedroom-set" data-cat="bed">
         <div class="img-wrap"><img src="assets/bedroom-cabinet.jpg" alt="Modern bedroom storage set"></div>
         <div class="card-body">
           <p class="card-cat">Bedroom · Suite</p>
@@ -265,7 +288,7 @@
         </div>
       </article>
 
-      <article class="card" data-cat="wardrobe">
+      <article class="card" data-id="sliding-wardrobe" data-cat="wardrobe">
         <div class="img-wrap"><img src="assets/wardrobe-white.jpg" alt="White sliding-door wardrobe"></div>
         <div class="card-body">
           <p class="card-cat">Bedroom · Wardrobe</p>
@@ -276,6 +299,21 @@
       </article>
     </div>
     <p class="no-results" id="noResults">No pieces in this category yet — coming soon.</p>
+
+    <!-- ===== Product detail view ===== -->
+    <div class="detail-view" id="detailView">
+      <button class="detail-back" id="detailBack">← Back to collection</button>
+      <div class="detail-layout">
+        <figure><img id="detailImg" src="" alt=""></figure>
+        <div>
+          <p class="detail-kicker" id="detailCat"></p>
+          <h2 class="detail-title" id="detailName"></h2>
+          <p class="detail-desc" id="detailDesc"></p>
+          <ul class="spec-list" id="detailSpecs"></ul>
+          <a class="detail-cta" href="#contact" id="detailCta">Request a quote →</a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== About ===== -->
@@ -395,6 +433,120 @@
       });
       noResults.style.display = visible === 0 ? 'block' : 'none';
     });
+  });
+
+  // ===== Product detail =====
+  const PRODUCTS = {
+    'cloud-two-seater': {
+      name: 'Cloud Two-Seater',
+      cat: 'Living · Sofa',
+      img: 'assets/sofa-grey.jpg',
+      desc: 'Upholstery on slim wooden legs — light and comfortable for the modern living room.',
+      specs: [
+        ['Overall', '180 × 90 × 85 cm'],
+        ['Seat', 'Fabric upholstery'],
+        ['Frame', 'Solid wood + steel'],
+        ['Finish', 'Multiple fabric colours']
+      ]
+    },
+    'oak-leather-sofa': {
+      name: 'Oak Leather Sofa',
+      cat: 'Living · Sofa',
+      img: 'assets/sofa-brown.jpg',
+      desc: 'Warm leather over black metal legs — understated and refined.',
+      specs: [
+        ['Overall', '210 × 95 × 80 cm'],
+        ['Seat', 'Genuine leather'],
+        ['Frame', 'Solid wood + black metal'],
+        ['Finish', 'Tan / Brown / Black']
+      ]
+    },
+    'walnut-dining-table': {
+      name: 'Walnut Dining Table',
+      cat: 'Dining · Table',
+      img: 'assets/dining-walnut.jpg',
+      desc: 'Flowing table legs and rattan chair backs — solid and full of character.',
+      specs: [
+        ['Table', '160 × 90 × 75 cm'],
+        ['Chairs', 'Set of 4 included'],
+        ['Material', 'Walnut veneer + rattan'],
+        ['Finish', 'Natural / Walnut']
+      ]
+    },
+    'round-dining-table': {
+      name: 'Round Dining Table',
+      cat: 'Dining · Table',
+      img: 'assets/dining-round.jpg',
+      desc: 'A rounded form, perfect for small spaces and intimate gatherings.',
+      specs: [
+        ['Diameter', '120 cm'],
+        ['Height', '75 cm'],
+        ['Material', 'Solid wood'],
+        ['Finish', 'Natural / Oak']
+      ]
+    },
+    'modern-bedroom-set': {
+      name: 'Modern Bedroom Set',
+      cat: 'Bedroom · Suite',
+      img: 'assets/bedroom-cabinet.jpg',
+      desc: 'Integrated storage cabinetry for a clean, organised living space.',
+      specs: [
+        ['Configuration', 'Bed + Wardrobe + Storage'],
+        ['Material', 'MDF + solid wood'],
+        ['Finish', 'White / Grey / Walnut'],
+        ['Size', 'Customisable']
+      ]
+    },
+    'sliding-wardrobe': {
+      name: 'Sliding Wardrobe',
+      cat: 'Bedroom · Wardrobe',
+      img: 'assets/wardrobe-white.jpg',
+      desc: 'Minimal white doors and hidden storage — light and restrained.',
+      specs: [
+        ['Overall', '180 × 60 × 220 cm'],
+        ['Doors', 'Sliding, flush mount'],
+        ['Material', 'Lacquered MDF'],
+        ['Finish', 'White / Matte']
+      ]
+    }
+  };
+
+  const detailView = document.getElementById('detailView');
+  const detailBack = document.getElementById('detailBack');
+  const dImg = document.getElementById('detailImg');
+  const dCat = document.getElementById('detailCat');
+  const dName = document.getElementById('detailName');
+  const dDesc = document.getElementById('detailDesc');
+  const dSpecs = document.getElementById('detailSpecs');
+  const dCta = document.getElementById('detailCta');
+
+  function openDetail(id) {
+    const p = PRODUCTS[id];
+    if (!p) return;
+    dImg.src = p.img;
+    dImg.alt = p.name;
+    dCat.textContent = p.cat;
+    dName.textContent = p.name;
+    dDesc.textContent = p.desc;
+    dSpecs.innerHTML = p.specs.map(s =>
+      '<li><span class="s-label">' + s[0] + '</span><span class="s-val">' + s[1] + '</span></li>'
+    ).join('');
+    detailView.classList.add('active');
+    detailView.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // 避免点 "Request a quote" 链接时也触发详情
+      if (e.target.closest('.more')) return;
+      openDetail(card.dataset.id);
+    });
+    card.style.cursor = 'pointer';
+  });
+
+  detailBack.addEventListener('click', () => {
+    detailView.classList.remove('active');
+    document.getElementById('collection').scrollIntoView({ behavior: 'smooth' });
   });
 </script>
 </body>
