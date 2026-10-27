@@ -83,6 +83,7 @@
     display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
   }
   .card{background:var(--paper-2);border:1px solid var(--line);}
+  .card-link{display:block;color:inherit;text-decoration:none;}
   .card .img-wrap{overflow:hidden;aspect-ratio:4/3;}
   .card .img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
   .card:hover .img-wrap img{transform:scale(1.04);}
@@ -238,15 +239,17 @@
     </div>
 
     <div class="grid">
+      <a class="card-link" href="products/cloud-two-seater.html">
       <article class="card" data-id="cloud-two-seater" data-cat="sofa">
         <div class="img-wrap"><img src="assets/sofa-grey.jpg" alt="Grey fabric two-seater sofa"></div>
         <div class="card-body">
           <p class="card-cat">Living · Sofa</p>
           <h3>Cloud Two-Seater</h3>
           <p>Upholstery on slim wooden legs — light and comfortable for the modern living room.</p>
-          <a class="more" href="#contact">Request a quote →</a>
+          <span class="more">Request a quote →</span>
         </div>
       </article>
+      </a>
 
       <article class="card" data-id="oak-leather-sofa" data-cat="sofa">
         <div class="img-wrap"><img src="assets/sofa-brown.jpg" alt="Brown leather sofa"></div>
@@ -536,6 +539,8 @@
   }
 
   cards.forEach(card => {
+    // 被 .card-link 包裹的卡片走原生跳转到独立详情页，不绑定同页逻辑
+    if (card.closest('.card-link')) return;
     card.addEventListener('click', (e) => {
       // 避免点 "Request a quote" 链接时也触发详情
       if (e.target.closest('.more')) return;
